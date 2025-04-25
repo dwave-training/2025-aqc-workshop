@@ -1,1 +1,1 @@
-dwave-ocean-sdk>=3.0.0
+dwave-ocean-sdk>=8.3.0  # To do, update with inclusion of ParallelEmbedding composite
