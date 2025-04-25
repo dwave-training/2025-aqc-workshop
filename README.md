@@ -1,25 +1,16 @@
-**Interested in contributing a code example?** 
+# Kibble-Zurek and Landau-Zener journal experiments in ocean-sdk
 
-Please take a look at our [contribution guidelines](CONTRIBUTING.md) before
-getting started. Thanks!
+A repository of code to demonstrate simple Kibble-Zurek and Landau-Zener
+experiments compatible with
 
-<!-- Before submitting your code, please delete the above code contribution
-instructions and this comment as they will not be relevant in your code 
-example README.md.-->
+* https://doi.org/10.1038/s41586-023-05867-2 (Figure 2C)
+* https://doi.org/10.1038/s41567-022-01741-6 (Figure 2A)
 
-# <demo_name>
+Attendees are encouraged to run and extend these examples. See also our
+collection of demos such as the zero-noise extrapolation demo:
 
-Describe your example and specify what it is demonstrating. Consider the
-following questions:
+and other instructive codebases such as the shimming-tutorial:
 
-* Is it pedagogical or a usable application?
-* Does it belong to a particular domain such as material simulation or logistics? 
-* What level of Ocean proficiency does it target (beginner, advanced, pro)? 
-
-A clear description allows us to properly categorize your example.
-
-Images are encouraged. If your example produces a visualization, consider
-displaying it here.
 
 ![D-Wave Logo](dwave_logo.png)
 
@@ -28,37 +19,20 @@ displaying it here.
 A simple command that runs your program. For example,
 
 ```bash
-python <demo_name>.py
+python aqc_main.py
 ```
 
 ### Inputs
-If your example requires user input, make sure to specify the input format and any input limitations.
+First draft. No inputs.
+
 ### Outputs
-An example program output.
+The code displays embeddings and plots demonstrating power-law or exponential scaling of energy.
 
 ## Problem Description 
 
-Objectives to be optimized: the goals the process attempts to accomplish by minimizing or maximizing certain aspects of the problem to the extent possible; for example, a production-line optimization might attempt to minimize the time to produce all of the products.
+The first example reproduces published Kibble-Zurek phenomena.
 
-Constraints: aspects of the problem and/or process, with limited or no flexibility, that must be satisfied for solutions to be considered feasible; for example, a production-line optimization might have a limitation that Machine A can only bend 10 parts per hour.
-
-## Model Overview
-The clearer your model is presented here, the more useful it will be to others. For a strong example of this section, see [here](https://github.com/dwave-examples/3d-bin-packing#model-overview).
-
-### Parameters
-List and define the parameters used in your model.
-
-### Variables
-List and define (including type: e.g., "binary" or "integer") the variables solved for in your model.
-
-### Expressions
-List and define any combinations of variables used for easier representations of the models.
-
-### Objective
-Mathematical formulation of the objective described in the previous section using the listed parameters, variables, etc.
-
-### Constrains
-Mathematical formulation of the constraints described in the previous section using the listed parameters, variables, etc.
+The second example reproduces published Landau-Zener phenomena.
 
 ## Code Overview
 
@@ -66,26 +40,20 @@ A general overview of how the code works.
 
 We prefer descriptions in bite-sized bullet points:
 
-* Here's an example bullet point
+* Define a target problem
+* Connect to a solver
+* Construct mapping(s) from the problem to the solver (embedding)
+* Submit QPU instructions varying by fast-anneal time collecting data
+* Plot the data
 
 ## Code Specifics
 
-Notable parts of the code implementation.
-
-This is the place to:
-
-* Highlight a part of the code implementation
-* Talk about unusual or potentially difficult parts of the code
-* Explain a code decision
-* Explain how parameters were tuned
-
-Note: there is no need to repeat everything that is already well-documented in
-the code.
+Ocean-sdk is under development, please contribute code and requests, and report issues. 
 
 ## References
 
-A. Person, "Title of Amazing Information", [short link
-name](https://example.com/)
+* https://doi.org/10.1038/s41586-023-05867-2
+* https://doi.org/10.1038/s41567-022-01741-6
 
 ## License
 
