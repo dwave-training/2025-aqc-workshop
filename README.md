@@ -8,9 +8,11 @@ experiments compatible with
 
 Attendees are encouraged to run and extend these examples. See also our
 collection of demos such as the zero-noise extrapolation demo:
-
+https://github.com/dwave-examples/kibble-zurek
 and other instructive codebases such as the shimming-tutorial:
+https://github.com/dwavesystems/shimming-tutorial
 
+ocean-sdk is an open-source platform, please contribute code, make requests and report issues.
 
 ![D-Wave Logo](dwave_logo.png)
 
@@ -36,19 +38,11 @@ The second example reproduces published Landau-Zener phenomena.
 
 ## Code Overview
 
-A general overview of how the code works.
-
-We prefer descriptions in bite-sized bullet points:
-
 * Define a target problem
 * Connect to a solver
 * Construct mapping(s) from the problem to the solver (embedding)
 * Submit QPU instructions varying by fast-anneal time collecting data
 * Plot the data
-
-## Code Specifics
-
-Ocean-sdk is under development, please contribute code and requests, and report issues. 
 
 ## References
 
