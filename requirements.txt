@@ -1,4 +1,4 @@
-dwave-ocean-sdk>=8.3.0  # To do, update with inclusion of ParallelEmbedding composite
-dwave-system @ git+https://github.com/jackraymond/dwave-system@feature/parallel_embeddings
-dwave-networkx @ git+https://github.com/dwavesystems/dwave-networkx@main
 matplotlib
+dwave-system @ git+https://github.com/jackraymond/dwave-system@feature/parallel_embeddings
+dwave-networkx @ git+https://github.com/jackraymond/dwave-networkx@main
+dwave-ocean-sdk>=8.3.0  # To do, update with inclusion of ParallelEmbedding composite
