@@ -1,4 +1,5 @@
 matplotlib
-dwave-system @ git+https://github.com/jackraymond/dwave-system@feature/parallel_embeddings
-dwave-networkx @ git+https://github.com/jackraymond/dwave-networkx@main
+-e git+https://github.com/jackraymond/dwave-system@feature/parallel_embeddings#egg=dwave-system  # Temporary, subject to ocean version iteration
+
+-e git+https://github.com/dwavesystems/dwave-networkx@main#egg=dwave-networkx  # Temporary, subject to ocean version iteration
 dwave-ocean-sdk>=8.3.0  # To do, update with inclusion of ParallelEmbedding composite
