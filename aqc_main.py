@@ -1,4 +1,4 @@
-# Copyright [2025] D-Wave
+# Copyright 2025 D-Wave
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,18 +17,20 @@ A repository of code to demonstrate simple Kibble-Zurek and Landau-Zener experim
 compatible with https://doi.org/10.1038/s41586-023-05867-2 (Figure 2C)
 and https://doi.org/10.1038/s41567-022-01741-6 (Figure 2A)
 """
+import argparse
+from time import perf_counter
 
 import numpy as np
 import networkx as nx
+import matplotlib.pyplot as plt
+import pickle
+
 import minorminer.subgraph
 from minorminer.utils.parallel_embeddings import find_multiple_embeddings
+from dwave.preprocessing.composites import SpinReversalTransformComposite
 import dwave.system
-import matplotlib.pyplot as plt
-from time import perf_counter
-import pickle
 from dwave.samplers import TreeDecompositionSolver
-from dwave_networkx import draw_parallel_embeddings, draw_zephyr, draw_chimera
-
+from dwave_networkx import draw_parallel_embeddings
 
 def get_model(model="Landau-Zener", model_idx=0):
     if model == "Kibble-Zurek":
@@ -72,8 +74,9 @@ def main(
     tas_nanosec=(5, 7, 10, 14, 20),
     num_models=3,
     parallelize_embedding=False,
+    use_srt=False
 ):
-    """Experiment with customizable parameters"""
+    """Experiment with customizable parameters; see main function descriptions. """
     # Source graph connectivity:
     h, J, EGS, label = get_model(model=model, model_idx=0)  # For topology only
     num_vars = len(h)
@@ -86,6 +89,10 @@ def main(
     )
     target_graph = qpu.to_networkx_graph()
 
+    sampler = qpu
+    # Apply a spin-reversal transform
+    if use_srt == True:
+        sampler = SpinReversalTransformComposite(sampler)
     # Generation of embeddings:
     time0 = perf_counter()
     embedder_kwargs = {"timeout": 10}
@@ -101,44 +108,22 @@ def main(
             embedder_kwargs=embedder_kwargs,
         )
         sampler = dwave.system.ParallelEmbeddingComposite(
-            qpu, embeddings=[{k: (v,) for k, v in emb.items()} for emb in embeddings]
-        )
-        draw_parallel_embeddings(
-            G=qpu.to_networkx_graph(),
-            embeddings=embeddings,
-            S=nx.from_edgelist(J.keys()),
-            one_to_iterable=False,
+            sampler, embeddings=[{k: (v,) for k, v in emb.items()} for emb in embeddings]
         )
     else:
         embedding = minorminer.subgraph.find_subgraph(
             source_graph, target_graph, **embedder_kwargs
         )
-        linear_biases = {
-            embedding[v]: h for v, h in h.items()
-        }  # 1:1 transformation to qubits
-        quadratic_biases = {
-            (embedding[e[0]], embedding[e[1]]): J for e, J in J.items()
-        }  # 1:1 transformation to qubits
-        # NB More generally can use draw_zephyr_embeddings or draw_pegasus_embeddings
-        if qpu.properties["topology"]["type"] == "zephyr":
-            draw_zephyr(
-                target_graph,
-                linear_biases=linear_biases,
-                quadratic_biases=quadratic_biases,
-                node_size = 0
-            )
-        elif qpu.properties["topology"]["type"] == "pegasus":
-            draw_pegasus(
-                target_graph,
-                linear_biases=linear_biases,
-                quadratic_biases=quadratic_biases,
-                node_size = 0
-            )
-        else:
-            print("Expecting either pegasus or zephyr topology")
         sampler = dwave.system.FixedEmbeddingComposite(
-            qpu, embedding={k: (v,) for k, v in embedding.items()}
+            sampler, embedding={k: (v,) for k, v in embedding.items()}
         )
+        embeddings = [embedding]
+    draw_parallel_embeddings(
+        G=qpu.to_networkx_graph(),
+        embeddings=embeddings,
+        S=nx.from_edgelist(J.keys()),
+        one_to_iterable=False,
+    )  # There are many different dwave_networkx visualization tools suiting other purposes.
     print("Embedding time:", perf_counter() - time0)
     plt.savefig(f"{model}_embeddings_{solver}.png")
     plt.show()
@@ -180,9 +165,30 @@ def main(
 
 
 if __name__ == "__main__":
-    # To do, command line options:
-    solver = "Advantage2_prototype2.6"
-    model = "Landau-Zener"
-    model = "Kibble-Zurek"
-    tas_nanosec = [5, 7, 10, 14, 20]  # Larger values can show thermal deviations
-    main(solver=solver, model=model, tas_nanosec=tas_nanosec)
+    
+    tas_nanosec = [5, 7, 10, 14, 20]  # Larger values can show thermal deviation
+
+    parser = argparse.ArgumentParser(description="example1_1_fm_loop_balancing")
+    
+    parser.add_argument(
+        "--model", default='Kibble-Zurek', type=str, help="model: either 'Landau-Zener' or 'Kibble-Zurek'"
+    )
+    parser.add_argument(
+        "--solver_name",
+        type=str,
+        help="option to specify QPU solver",
+    )
+    parser.add_argument(
+        "--parallelize_embedding",
+        action="store_true",
+        help="parallelize, where possible, the embedding",
+    )
+
+    parser.add_argument(
+        "--use_srt",
+        action="store_true",
+        help="use spin reversal transform",
+    )
+    args = parser.parse_args()
+
+    main(model=args.model, solver=args.solver_name, tas_nanosec=tas_nanosec, use_srt=args.use_srt, parallelize_embedding=args.parallelize_embedding)
