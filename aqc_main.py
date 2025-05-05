@@ -168,7 +168,7 @@ if __name__ == "__main__":
     
     tas_nanosec = [5, 7, 10, 14, 20]  # Larger values can show thermal deviation
 
-    parser = argparse.ArgumentParser(description="example1_1_fm_loop_balancing")
+    parser = argparse.ArgumentParser(description="AQC2025 workshop (ocean-sdk for physics)")
     
     parser.add_argument(
         "--model", default='Kibble-Zurek', type=str, help="model: either 'Landau-Zener' or 'Kibble-Zurek'"
