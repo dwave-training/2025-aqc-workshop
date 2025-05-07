@@ -1,4 +1,4 @@
-# Kibble-Zurek and Landau-Zener journal experiments in ocean-sdk
+# Kibble-Zurek and Landau-Zener experiments in ocean-sdk
 
 A repository of code to demonstrate simple Kibble-Zurek and Landau-Zener
 experiments compatible with
@@ -6,35 +6,51 @@ experiments compatible with
 * https://doi.org/10.1038/s41586-023-05867-2 (Figure 2C)
 * https://doi.org/10.1038/s41567-022-01741-6 (Figure 2A)
 
-Attendees are encouraged to run and extend these examples. See also our
-collection of demos such as the zero-noise extrapolation demo:
-https://github.com/dwave-examples/kibble-zurek
-and other instructive codebases such as the shimming-tutorial:
-https://github.com/dwavesystems/shimming-tutorial
-
-ocean-sdk is an open-source platform, please contribute code, make requests and report issues.
+Attendees can participate in one of two ways:
+1. Clone the repo. In a python environment (python 3-9 to 3.13) install the requirements.txt
 
 ![D-Wave Logo](dwave_logo.png)
 
-## Usage
+## Usage (codespaces)
 
-A simple command that runs your program. For example,
+The codespaces free-tier allocation associated to your github account is sufficient to run the experiments.
+
+
+## Usage (local)
+Clone the repo.
+
+In a python3 environment (3.9 to 3.13) install the requirements:
 
 ```bash
-python aqc_main.py
+pip install -r requirements.txt
+```
+
+Note that Leap token should be made available to ocean-sdk. This might typicaly be achieved by typing and entering the workshop token.
+
+```bash
+dwave setup --oob
+```
+
+The experiment is run under defaults as
+
+```bash
+python3 main.py
 ```
 
 ### Inputs
-First draft. No inputs.
+
+To see configuration options
+```bash
+python3 main.py --help
+```
 
 ### Outputs
-The code displays embeddings and plots demonstrating power-law or exponential scaling of energy.
+
+The code prints to file and/or displays embeddings and a figure demonstrating the power-law or exponential scaling associated to Kibble-Zurek and Landau-Zener phenomena respectively.
 
 ## Problem Description 
 
-The first example reproduces published Kibble-Zurek phenomena.
-
-The second example reproduces published Landau-Zener phenomena.
+See Figure 2C of the cited papers to understand details of the experiment.
 
 ## Code Overview
 

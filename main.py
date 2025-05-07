@@ -124,10 +124,11 @@ def main(
         S=nx.from_edgelist(J.keys()),
         one_to_iterable=False,
     )  # There are many different dwave_networkx visualization tools suiting other purposes.
-    print("Embedding time:", perf_counter() - time0)
-    plt.savefig(f"{model}_embeddings_{solver}.png")
+    print("Embedding time (seconds):", perf_counter() - time0)
+    fname f"{model}_embeddings_{solver}.png"
+    plt.savefig(fname)
     plt.show()
-
+    print(f"An image of the embedding has been saved to {fname}, see local directory, or panel (left) if using codespaces")
     for model_idx in range(num_models):
         h, J, EGS, label = get_model(model=model, model_idx=model_idx)  # For topology
         stats = []
@@ -160,9 +161,20 @@ def main(
     plt.legend()
     plt.yscale("log")
     plt.xlabel("Annealing time (ns)")
-    plt.savefig(f"{model}_data_{solver}.png")
+    fname = f"{model}_data_{solver}.png"
+    plt.savefig(fname)
     plt.show()
-
+    print(f"A scaling plot has been saved to {fname}, see local directory, or panel (left) if using codespaces.")
+    if model == 'Kibble-Zurek':
+        print("The density of defects (also called kink density in 1D"
+              " scales as a power-law 1/2. Demonstrated by the approximately"
+              " straight-line dependence in log-log plots."
+    else:
+        print("The rate of diabatic transitions from the ground state"
+              " to the first excited state decays exponentially, in proportion"
+              " the the inverse gap-squared. Demonstrated by the approximately"
+              " straight-line dependence in log-linear plots.")
+    
 
 if __name__ == "__main__":
     

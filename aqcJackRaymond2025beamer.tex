@@ -1,0 +1,216 @@
+
+%\pdfminorversion=4
+\pdfminorversion=4
+\documentclass[aspectratio=169,final,11pt,forpublic]{beamer} %
+% Options:
+% [final] Final version.  Removes CONFIDENTIAL DRAFT marking.  Default false.
+% [forpublic] Non-confidential?  Uses copyright footer.  Default false.
+% [confidential] Confidential?  Uses confidential footer.  Default false.
+% [aspectratio=169] or [aspectratio=43]: Widescreen (16:9) or normal size (4:3)?
+%      NOTE: Compile twice if you change the aspect ratio, otherwise things won't look right.
+
+
+\usepackage{listings}
+\usetheme{dwave}
+\newcommand\cutcontent[1]{}
+
+\title{\ \\ \vspace{.5cm} Quantum simulation with ocean-sdk\vspace{.5cm}}
+\date[2025]{13 June, 2025}
+\author{Jack Raymond}
+
+\usepackage{braket,tikz,ulem,xmpmulti,siunitx,algorithm,algorithmic}%
+\usetikzlibrary{arrows}
+\usetikzlibrary{tikzmark,fit,shapes.geometric}
+
+\definecolor{myorange}{rgb}{0.85000,0.32500,0.09800}%
+\definecolor{myblue}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mypurple}{rgb}{0.49400,0.18400,0.55600}%
+
+\newlength{\figurewidth}
+\newlength{\figureheight}
+
+%Allows you to change the text width of a single frame.  This is useful for wide slides
+%that don't have wide content.  Example:
+%\Narrower[3cm]{ Some content, maybe the whole slide (not counting the title) }
+%\Narrower{ Default narrowing is 4cm }
+\newcommand\Narrower[2][4cm]{%
+\makebox[\linewidth][c]{%
+  \begin{minipage}{\dimexpr\textwidth-#1\relax}
+  \raggedright#2
+  \end{minipage}%
+  }%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{document}
+%\maketitle
+
+
+%\headshotbackground{Jack Raymond}{Technical Lead, Performance Research}
+%\begin{frame}\headshotpic[fill=white]{profile.jpeg}%
+  
+%\end{frame}
+
+%\setblackbackground{0}
+\title{Quantum simulation \\with ocean-sdk\\ AQC 2025}
+\maketitlering
+
+\setwhitebackground{0}
+
+\setwhitebackground{3}
+\begin{frame}\frametitle{\bf In this talk}
+  \begin{columns}
+    \column{0.5\linewidth}
+    \begin{itemize}
+    \item A brief introduction to coherent annealing 
+    \item Run your own: Landau-Zener and Kibble-Zurek experiments
+    \item Code walk through (Q \& A)
+    \end{itemize}
+    \column{0.5\linewidth}
+    \includegraphics[width=0.8\linewidth]{DWave_Advantage_System.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}\frametitle{\bf Transverse-field Ising model annealing}
+  \begin{columns}
+    \column{0.5\linewidth}
+    \vspace{-0.2cm}
+  \begin{itemize}
+    \item Evolve a multi-spin system for time $t_a$, $H(s=t/t_a) = -\Gamma(s) \sum_i \sigma^x_i + \mathcal{J}(s) H_p$  
+    \item[1] Program a problem Hamiltonian $H_P = \sum_{ij} J_{ij}\sigma^z_i \sigma^z_j + \sum_i h_i \sigma^z_i$
+    \item[2] Prepare a ground state at (large $\Gamma(s=0)$ and small $\mathcal{J}(s=0))$
+    \item[3] Evolve to large $\mathcal{J}(s=1)$ and small $\Gamma(s=1)$
+    \item[4] Measure in the computational basis
+    \item Kadowaki and Nishimori, Phys. Rev. E 58, 5355 (1998)
+  \end{itemize}
+  \column{0.5\linewidth}
+  \includegraphics[width=0.8\linewidth]{Figure4.png}
+\end{columns}
+\end{frame}
+
+\begin{frame}\frametitle{\bf Four recent papers}
+  \begin{columns}
+    \column{0.5\linewidth}
+    \vspace{-0.2cm}
+  \begin{itemize}
+    \item[1] Coherent quantum annealing in
+      a programmable 2,000 qubit Ising chain, Nature
+      Physics (2022)
+    \item[2] Quantum critical dynamics in
+      a 5,000-qubit programmable spin glass, Nature
+      (2023)
+    \item[3] Quantum error mitigation in quantum annealing, npj Quantum Information (2025)
+    \item[4] Beyond classical computation in quantum simulation, Science (2025)
+  \end{itemize}
+  \column{0.5\linewidth}
+  \includegraphics[width=0.8\linewidth]{supremacy.png}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}\frametitle{\bf Landau-Zener dynamics with 16 qubit random models}
+  The probability to excite away from the ground state decays exponentially with the annealing time: the exponent determined by the inverse square gap. 
+  \begin{columns}
+    \column{0.5\linewidth}
+    \begin{center}
+    \includegraphics[width = 0.5\linewidth]{An-avoided-crossing-and-a-schematic-drawing-of-the-diabatic-fast-and-adiabatic-slow.png}\\
+    \includegraphics[width = 0.8\linewidth]{Figure2A_16q.png}\\
+    {\small Quantum critical dynamics in
+      a 5,000-qubit programmable spin glass, Nature
+      (2023)}
+    \end{center}
+    \column{0.5\linewidth}
+    \includegraphics[width = 0.6\linewidth]{Figure2C_16q.png}
+    \end{columns}
+\end{frame}
+
+\begin{frame}\frametitle{\bf Kibble-Zurek dynamics in 1D}
+  Defect rate decays as a power of the annealing time: the power determined by the universality class of the phase transition.
+  \begin{columns}
+    \column{0.5\linewidth}
+    \begin{center}
+      \includegraphics[width = \linewidth]{Coherent2000_Figure1a.png}\\
+      {\small Coherent quantum annealing in
+      a programmable 2,000 qubit Ising chain, Nature
+      Physics (2022)}
+    \end{center}
+    \column{0.5\linewidth}
+    \begin{center}
+      \includegraphics[width = \linewidth]{Coherent2000_Figure1bc.png}\\
+    \end{center}
+\end{columns}
+\end{frame}
+
+\begin{frame}\frametitle{\bf Implementing experiments (AQC2024)}
+  \begin{columns}
+    \column{0.5\linewidth}
+    \vspace{-0.2cm}
+    \begin{itemize}
+      \item Fast anneal newly (AQC 2024!) released in all online QPU solvers
+        
+      \item Allows simple reproduction of earlier results
+
+      \item E.g. Probability of the ground state
+  
+      \item 3 spin-glass models (different colors):
+        16 variables, 52 couplers (+/-1), various gaps
+
+      \item Schedule $\{\Gamma(s), \mathcal{J}(s)\}$ as published on the website; Matching annealing\_time; $J$ modelled == $J$ programmed
+        
+      \item Lines are exact closed system dynamics, points are single-programming QA data
+  \end{itemize}
+  \column{0.5\linewidth}
+  \begin{center}
+  \includegraphics[width=0.8\linewidth]{Figure2C.pdf}\\
+  (reproduction of Figure 2c) \\
+  {\small Quantum critical dynamics in
+  a 5,000-qubit programmable spin glass, Nature
+  (2023)}
+  \end{center}
+\end{columns}
+\end{frame}
+
+\begin{frame}\frametitle{\bf Under 20 lines of code, a 1D experiment}
+  \begin{center}
+    \includegraphics[width=0.7\linewidth]{chain1024code.png}\\
+    This Kibble-Zurek (and previous slide Landau-Zener) code, are the subject of the code walk through.
+  \end{center}
+\end{frame}
+
+
+\section{Run the code}
+\begin{frame}\frametitle{\bf Run the code (locally or codespaces)}
+  At github.com/jackraymond/AQC2025workshop \\
+  Code > codespace > +\\
+  \begin{itemize}
+    \item[] dwave setup - -oob  \# Paste the workshop token for Leap access
+    \item[] python main.py - - help  \# Show experiment options
+    \item[] python main.py  \# Run with defaults
+  \end{itemize}
+
+  \begin{itemize}
+  \item solver\_name: e.g. Advantage2\_protototype2.6
+  \item model: 'Landau-Zener' or 'Kibble-Zurek'
+  \item use\_srt: Randomize (sign flip) the computational basis definition.
+  \item parallelize\_embedding: embed more than once, as allowed
+  \end{itemize}
+  For links and further examples see the jupyter notebook:
+  physics-experiments-ocean-sdk.ipynb
+\end{frame}
+  
+\begin{frame}\frametitle{\bf Conclusion}
+
+    \begin{center}
+      \includegraphics[width=0.8\linewidth]{Demo.png}
+    \end{center}
+    Use the latest features : Contribute to open source : Experiment\\
+    Thanks for attending!
+\end{frame}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
