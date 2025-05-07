@@ -1,22 +1,37 @@
 # Kibble-Zurek and Landau-Zener experiments in ocean-sdk
 
+** For unknown reasons the requirements.txt install correctly for codespaces but not locally. For now, install the required packages individually if you are not using codespaces. This should be a non-issue once ocean-sdk is updated (before the workshop). **
+
 A repository of code to demonstrate simple Kibble-Zurek and Landau-Zener
 experiments compatible with
 
 * https://doi.org/10.1038/s41586-023-05867-2 (Figure 2C)
 * https://doi.org/10.1038/s41567-022-01741-6 (Figure 2A)
 
-Attendees can participate in one of two ways:
-1. Clone the repo. In a python environment (python 3-9 to 3.13) install the requirements.txt
-
 ![D-Wave Logo](dwave_logo.png)
 
-## Usage (codespaces)
+## Usage 
+
+### Codespaces usage
+(codespaces)
 
 The codespaces free-tier allocation associated to your github account is sufficient to run the experiments.
 
+Click on the code tab (top right) and select codespaces.
 
-## Usage (local)
+Set up your leap credentials:
+```bash
+dwave setup --oob
+```
+
+The experiment is run under defaults as:
+
+```bash
+python3 main.py
+```
+
+
+## Local usage
 Clone the repo.
 
 In a python3 environment (3.9 to 3.13) install the requirements:
