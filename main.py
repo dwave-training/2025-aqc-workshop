@@ -135,6 +135,7 @@ def main(
         print(
             f"{len(tas_nanosec)}",
             " sequential QPU programmings (varying in annealing time)",
+            f" {model} with {label}"
         )
         for ta_nanosec in tas_nanosec:
             qpu_kwargs["annealing_time"] = ta_nanosec / 1000
