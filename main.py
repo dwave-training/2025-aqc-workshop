@@ -32,6 +32,7 @@ import dwave.system
 from dwave.samplers import TreeDecompositionSolver
 from dwave_networkx import draw_parallel_embeddings
 
+
 def get_model(model="Landau-Zener", model_idx=0):
     if model == "Kibble-Zurek":
         num_vars = 512
@@ -74,9 +75,9 @@ def main(
     tas_nanosec=(5, 7, 10, 14, 20),
     num_models=3,
     parallelize_embedding=False,
-    use_srt=False
+    use_srt=False,
 ):
-    """Experiment with customizable parameters; see main function descriptions. """
+    """Experiment with customizable parameters; see main function descriptions."""
     # Source graph connectivity:
     h, J, EGS, label = get_model(model=model, model_idx=0)  # For topology only
     num_vars = len(h)
@@ -108,7 +109,8 @@ def main(
             embedder_kwargs=embedder_kwargs,
         )
         sampler = dwave.system.ParallelEmbeddingComposite(
-            sampler, embeddings=[{k: (v,) for k, v in emb.items()} for emb in embeddings]
+            sampler,
+            embeddings=[{k: (v,) for k, v in emb.items()} for emb in embeddings],
         )
     else:
         embedding = minorminer.subgraph.find_subgraph(
@@ -125,17 +127,19 @@ def main(
         one_to_iterable=False,
     )  # There are many different dwave_networkx visualization tools suiting other purposes.
     print("Embedding time (seconds):", perf_counter() - time0)
-    fname f"{model}_embeddings_{solver}.png"
+    fname = f"{model}_embeddings_{solver}.png"
     plt.savefig(fname)
     plt.show()
-    print(f"An image of the embedding has been saved to {fname}, see local directory, or panel (left) if using codespaces")
+    print(
+        f"An image of the embedding has been saved to {fname}, see local directory, or panel (left) if using codespaces"
+    )
     for model_idx in range(num_models):
         h, J, EGS, label = get_model(model=model, model_idx=model_idx)  # For topology
         stats = []
         print(
             f"{len(tas_nanosec)}",
             " sequential QPU programmings (varying in annealing time)",
-            f" {model} with {label}"
+            f" {model} with {label}",
         )
         for ta_nanosec in tas_nanosec:
             qpu_kwargs["annealing_time"] = ta_nanosec / 1000
@@ -165,26 +169,37 @@ def main(
     fname = f"{model}_data_{solver}.png"
     plt.savefig(fname)
     plt.show()
-    print(f"A scaling plot has been saved to {fname}, see local directory, or panel (left) if using codespaces.")
-    if model == 'Kibble-Zurek':
-        print("The density of defects (also called kink density in 1D"
-              " scales as a power-law 1/2. Demonstrated by the approximately"
-              " straight-line dependence in log-log plots."
+    print(
+        f"A scaling plot has been saved to {fname}, see local directory, or panel (left) if using codespaces."
+    )
+    if model == "Kibble-Zurek":
+        print(
+            "The density of defects (also called kink density in 1D"
+            " scales as a power-law 1/2. Demonstrated by the approximately"
+            " straight-line dependence in log-log plots."
+        )
     else:
-        print("The rate of diabatic transitions from the ground state"
-              " to the first excited state decays exponentially, in proportion"
-              " the the inverse gap-squared. Demonstrated by the approximately"
-              " straight-line dependence in log-linear plots.")
-    
+        print(
+            "The rate of diabatic transitions from the ground state"
+            " to the first excited state decays exponentially, in proportion"
+            " the the inverse gap-squared. Demonstrated by the approximately"
+            " straight-line dependence in log-linear plots."
+        )
+
 
 if __name__ == "__main__":
-    
+
     tas_nanosec = [5, 7, 10, 14, 20]  # Larger values can show thermal deviation
 
-    parser = argparse.ArgumentParser(description="AQC2025 workshop (ocean-sdk for physics)")
-    
+    parser = argparse.ArgumentParser(
+        description="AQC2025 workshop (ocean-sdk for physics)"
+    )
+
     parser.add_argument(
-        "--model", default='Kibble-Zurek', type=str, help="model: either 'Landau-Zener' or 'Kibble-Zurek'"
+        "--model",
+        default="Kibble-Zurek",
+        type=str,
+        help="model: either 'Landau-Zener' or 'Kibble-Zurek'",
     )
     parser.add_argument(
         "--solver_name",
@@ -204,4 +219,10 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    main(model=args.model, solver=args.solver_name, tas_nanosec=tas_nanosec, use_srt=args.use_srt, parallelize_embedding=args.parallelize_embedding)
+    main(
+        model=args.model,
+        solver=args.solver_name,
+        tas_nanosec=tas_nanosec,
+        use_srt=args.use_srt,
+        parallelize_embedding=args.parallelize_embedding,
+    )
