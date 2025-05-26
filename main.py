@@ -19,7 +19,7 @@ and https://doi.org/10.1038/s41567-022-01741-6 (Figure 2A)
 """
 import argparse
 from time import perf_counter
-
+from tqdm import tqdm
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -141,7 +141,7 @@ def main(
             " sequential QPU programmings (varying in annealing time)",
             f" {model} with {label}",
         )
-        for ta_nanosec in tas_nanosec:
+        for ta_nanosec in tqdm(tas_nanosec):
             qpu_kwargs["annealing_time"] = ta_nanosec / 1000
             ss = sampler.sample_ising(h, J, **qpu_kwargs)
             if model == "Landau-Zener":
