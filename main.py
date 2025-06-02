@@ -55,11 +55,11 @@ def get_model(model="Landau-Zener", model_idx=0):
         Js = list(X.values())
         J = Js[model_idx]
         if model_idx == 0:
-            label = "Large Gap"
+            label = "Small Gap"
         elif model_idx == 1:
             label = "Intermediate Gap"
         else:
-            label = "Small Gap"
+            label = "Large Gap"
         nodes = sorted({n for e in J for n in e})
         h = {n: 0 for n in nodes}
         ss = TreeDecompositionSolver().sample_ising(h, J)

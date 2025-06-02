@@ -14,8 +14,8 @@
 \usetheme{dwave}
 \newcommand\cutcontent[1]{}
 
-\title{\ \\ \vspace{.5cm} Quantum simulation with ocean-sdk\vspace{.5cm}}
-\date[2025]{13 June, 2025}
+\title{Hands-on Workshop with D-Wave Quantum Computers}
+\date[2025]{12 June, 2025}
 \author{Jack Raymond}
 
 \usepackage{braket,tikz,ulem,xmpmulti,siunitx,algorithm,algorithmic}%
@@ -54,58 +54,64 @@
 %\end{frame}
 
 %\setblackbackground{0}
-\title{Quantum simulation \\with ocean-sdk\\ AQC 2025}
+\title{Hands-on Workshop \\ with D-Wave \\ Quantum Computers}
 \maketitlering
 
 \setwhitebackground{0}
 
 \setwhitebackground{3}
-\begin{frame}\frametitle{\bf In this talk}
+\begin{frame}\frametitle{\bf In this workshop}
   \begin{columns}
     \column{0.5\linewidth}
+    The aim of the workshop is to showcase and work hands-on with some ocean-sdk tools useful for physics experiments\\
     \begin{itemize}
-    \item A brief introduction to coherent annealing 
-    \item Run your own: Landau-Zener and Kibble-Zurek experiments
-    \item Code walk through (Q \& A)
+    \item Landau-Zener and Kibble-Zurek experiments
+    \item Jupyter notebook, with code snippets and links
+    \item Question and answer
     \end{itemize}
+    Check your email for an invitation to the Leap project, which provides the API token necessary for D-Wave quantum computer access.\\
+    Log in to github, or download the code: http://github.com/dwavesystems/AQC2025workshop
     \column{0.5\linewidth}
-    \includegraphics[width=0.8\linewidth]{DWave_Advantage_System.png}
+    \includegraphics[width=0.8\linewidth]{chip.png}
   \end{columns}
 \end{frame}
 
-\begin{frame}\frametitle{\bf Transverse-field Ising model annealing}
+\begin{frame}\frametitle{\bf Quantum annealing}
   \begin{columns}
     \column{0.5\linewidth}
     \vspace{-0.2cm}
+    Evolve a multi-spin system for time $t_a$, $$H(s=t/t_a) = -\Gamma(s) \sum_i \sigma^x_i + \mathcal{J}(s) H_p \nonumber $$
   \begin{itemize}
-    \item Evolve a multi-spin system for time $t_a$, $H(s=t/t_a) = -\Gamma(s) \sum_i \sigma^x_i + \mathcal{J}(s) H_p$  
     \item[1] Program a problem Hamiltonian $H_P = \sum_{ij} J_{ij}\sigma^z_i \sigma^z_j + \sum_i h_i \sigma^z_i$
     \item[2] Prepare a ground state at (large $\Gamma(s=0)$ and small $\mathcal{J}(s=0))$
     \item[3] Evolve to large $\mathcal{J}(s=1)$ and small $\Gamma(s=1)$
     \item[4] Measure in the computational basis
-    \item Kadowaki and Nishimori, Phys. Rev. E 58, 5355 (1998)
   \end{itemize}
+  Kadowaki and Nishimori, Phys. Rev. E 58, 5355 (1998)
+  
   \column{0.5\linewidth}
   \includegraphics[width=0.8\linewidth]{Figure4.png}
 \end{columns}
 \end{frame}
 
-\begin{frame}\frametitle{\bf Four recent papers}
+\begin{frame}\frametitle{\bf Six recent papers}
   \begin{columns}
-    \column{0.5\linewidth}
+    \column{0.55\linewidth}
     \vspace{-0.2cm}
   \begin{itemize}
-    \item[1] Coherent quantum annealing in
+    \item[1*] Coherent quantum annealing in
       a programmable 2,000 qubit Ising chain, Nature
       Physics (2022)
-    \item[2] Quantum critical dynamics in
+    \item[2*] Quantum critical dynamics in
       a 5,000-qubit programmable spin glass, Nature
       (2023)
     \item[3] Quantum error mitigation in quantum annealing, npj Quantum Information (2025)
     \item[4] Beyond classical computation in quantum simulation, Science (2025)
+    \item[5] Blockchain with proof of quantum work (arXiv:2503.14462)
+    \item[6] Quantum dynamics in frustrated Ising fullerenes (arXiv:2505.08994)
   \end{itemize}
-  \column{0.5\linewidth}
-  \includegraphics[width=0.8\linewidth]{supremacy.png}
+  \column{0.45\linewidth}
+  \includegraphics[width=\linewidth]{supremacy.png}
 \end{columns}
 \end{frame}
 
@@ -127,7 +133,7 @@
 \end{frame}
 
 \begin{frame}\frametitle{\bf Kibble-Zurek dynamics in 1D}
-  Defect rate decays as a power of the annealing time: the power determined by the universality class of the phase transition.
+  Defect rates (equivalently residual energy) decays as a power of the annealing time; the power determined by the universality class of the phase transition.
   \begin{columns}
     \column{0.5\linewidth}
     \begin{center}
@@ -143,71 +149,69 @@
 \end{columns}
 \end{frame}
 
-\begin{frame}\frametitle{\bf Implementing experiments (AQC2024)}
-  \begin{columns}
-    \column{0.5\linewidth}
-    \vspace{-0.2cm}
-    \begin{itemize}
-      \item Fast anneal newly (AQC 2024!) released in all online QPU solvers
+%\begin{frame}\frametitle{\bf Implementing experiments (AQC2024)}
+%  \begin{columns}
+%    \column{0.5\linewidth}
+%    \vspace{-0.2cm}
+%    \begin{itemize}
+%      \item Fast anneal newly (AQC 2024!) released in all online QPU solvers
         
-      \item Allows simple reproduction of earlier results
+%      \item Allows simple reproduction of earlier results
+%
+%      \item E.g. Probability of the ground state
+%  
+%      \item 3 spin-glass models (different colors):
+%        16 variables, 52 couplers (+/-1), various gaps
+%
+%      \item Schedule $\{\Gamma(s), \mathcal{J}(s)\}$ as published on the website; Matching annealing\_time; $J$ modelled == $J$ programmed
+%        
+%      \item Lines are exact closed system dynamics, points are single-programming QA data
+%  \end{itemize}
+%  \column{0.5\linewidth}
+%  \begin{center}
+%  \includegraphics[width=0.8\linewidth]{Figure2C.pdf}\\
+%  (reproduction of Figure 2c) \\
+%  {\small Quantum critical dynamics in
+%  a 5,000-qubit programmable spin glass, Nature
+%  (2023)}
+%  \end{center}
+%\end{columns}
+%\end{frame}
 
-      \item E.g. Probability of the ground state
-  
-      \item 3 spin-glass models (different colors):
-        16 variables, 52 couplers (+/-1), various gaps
-
-      \item Schedule $\{\Gamma(s), \mathcal{J}(s)\}$ as published on the website; Matching annealing\_time; $J$ modelled == $J$ programmed
-        
-      \item Lines are exact closed system dynamics, points are single-programming QA data
-  \end{itemize}
-  \column{0.5\linewidth}
-  \begin{center}
-  \includegraphics[width=0.8\linewidth]{Figure2C.pdf}\\
-  (reproduction of Figure 2c) \\
-  {\small Quantum critical dynamics in
-  a 5,000-qubit programmable spin glass, Nature
-  (2023)}
-  \end{center}
-\end{columns}
-\end{frame}
-
-\begin{frame}\frametitle{\bf Under 20 lines of code, a 1D experiment}
-  \begin{center}
-    \includegraphics[width=0.7\linewidth]{chain1024code.png}\\
-    This Kibble-Zurek (and previous slide Landau-Zener) code, are the subject of the code walk through.
-  \end{center}
-\end{frame}
+%\begin{frame}\frametitle{\bf Under 20 lines of code, a 1D experiment}
+%  \begin{center}
+%    \includegraphics[width=0.7\linewidth]{chain1024code.png}\\
+%    This Kibble-Zurek (and previous slide Landau-Zener) code, are the subject of the code walk through.
+%  \end{center}
+%\end{frame}
 
 
-\section{Run the code}
 \begin{frame}\frametitle{\bf Run the code (locally or codespaces)}
   At github.com/jackraymond/AQC2025workshop \\
   Code > codespace > +\\
   \begin{itemize}
-    \item[] dwave setup - -oob  \# Paste the workshop token for Leap access
-    \item[] python main.py - - help  \# Show experiment options
-    \item[] python main.py  \# Run with defaults
+    \item[] {\bf dwave setup - -oob}  \# Paste the workshop token for the Leap quantum cloud service access
+    \item[] {\bf python main.py}  \# Run with defaults
+    \item[] {\bf python main.py - - help}  \# Show experiment options:
   \end{itemize}
 
   \begin{itemize}
-  \item solver\_name: e.g. Advantage2\_protototype2.6
+  \item solver\_name: e.g. Advantage2\_system1.1
   \item model: 'Landau-Zener' or 'Kibble-Zurek'
-  \item use\_srt: Randomize (sign flip) the computational basis definition.
-  \item parallelize\_embedding: embed more than once, as allowed
+  \item use\_srt: Randomize (sign flip) the computational basis definition. A means to mitigate control errors.
+  \item parallelize\_embedding: embed many times. A means to mitigate control, and sampling, errors. 
   \end{itemize}
-  For links and further examples see the jupyter notebook:
-  physics-experiments-ocean-sdk.ipynb
+  Further code examples: physics-experiments-ocean-sdk.ipynb
 \end{frame}
   
-\begin{frame}\frametitle{\bf Conclusion}
-
-    \begin{center}
-      \includegraphics[width=0.8\linewidth]{Demo.png}
-    \end{center}
-    Use the latest features : Contribute to open source : Experiment\\
-    Thanks for attending!
-\end{frame}
+%\begin{frame}\frametitle{\bf Conclusion}
+%
+%    \begin{center}
+%      \includegraphics[width=0.8\linewidth]{Demo.png}
+%    \end{center}
+%    Use the latest features : Contribute to open source : Experiment\\
+%    Thanks for attending!
+%\end{frame}
 
 \end{document}
 %%% Local Variables:
