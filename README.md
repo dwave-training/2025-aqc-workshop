@@ -1,52 +1,57 @@
-# Kibble-Zurek and Landau-Zener experiments in ocean-sdk
-
-** For unknown reasons the requirements.txt install correctly for codespaces but not locally. For now, install the required packages individually if you are not using codespaces. This should be a non-issue once ocean-sdk is updated (before the workshop). **
+# Kibble-Zurek and Landau-Zener Workshop
 
 A repository of code to demonstrate simple Kibble-Zurek and Landau-Zener
-experiments compatible with
+experiments compatible with those published in these papers:
 
 * https://doi.org/10.1038/s41586-023-05867-2 (Figure 2C)
 * https://doi.org/10.1038/s41567-022-01741-6 (Figure 2A)
 
 ![D-Wave Logo](dwave_logo.png)
 
-## Usage 
+## Installation
 
-### Codespaces usage
-(codespaces)
+You can run this example without installation in cloud-based IDEs that support
+the [Development Containers specification](https://containers.dev/supporting)
+(aka "devcontainers") such as GitHub
+[Codespaces](https://github.com/features/codespaces).
 
-The codespaces free-tier allocation associated to your github account is sufficient to run the experiments.
+### Codespaces (Online IDE)
+
+The Codespaces free-tier allocation associated to your GitHub account is
+sufficient to run the experiments.
 
 Click on the code tab (top right) and select codespaces.
 
-Set up your leap credentials:
+Follow the instructions printed to the terminal to set up your leap credentials.
+
 ```bash
 dwave setup --oob
 ```
-
-The experiment is run under defaults as:
-
-```bash
-python3 main.py
-```
-
-
 ## Local usage
-Clone the repo.
 
-In a python3 environment (3.9 to 3.13) install the requirements:
+Clone the repo. If you are cloning the repo to your local system, working in a
+[virtual environment](https://docs.python.org/3/library/venv.html) is
+recommended. Python 3.9 to 3.13 versions are supported.
+
+For development environments that do not support `devcontainers`, install
+requirements:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Note that Leap token should be made available to ocean-sdk. This might typicaly be achieved by typing and entering the workshop token.
+Note that a Leap account's token should be made available to the Ocean
+software. For workshop participants this is achieved by typing and entering the
+workshop token when requested.
 
 ```bash
 dwave setup --oob
 ```
 
-The experiment is run under defaults as
+## Usage
+
+The experiments are run with defaults by executing the following command from
+the terminal:
 
 ```bash
 python3 main.py
@@ -61,9 +66,10 @@ python3 main.py --help
 
 ### Outputs
 
-The code prints to file and/or displays embeddings and a figure demonstrating the power-law or exponential scaling associated to Kibble-Zurek and Landau-Zener phenomena respectively.
+The code prints to file and/or displays embeddings and a figure demonstrating
+the power-law or exponential scaling associated to Kibble-Zurek and Landau-Zener phenomena respectively.
 
-## Problem Description 
+## Problem Description
 
 See Figure 2C of the cited papers to understand details of the experiment.
 
