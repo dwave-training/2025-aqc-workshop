@@ -1,6 +1,10 @@
+# dwave-ocean-sdk>=8.3.0  # To do, update with inclusion of ParallelEmbeddingComposite and pointing to latest version of dwave-networkx
+minorminer>=0.2.19
+dwave-system>=1.32.0
+dwave-networkx>=0.8.18
+
 matplotlib
-dwave-ocean-sdk>=8.3.0  # To do, update with inclusion of ParallelEmbeddingComposite and pointing to latest version of dwave-networkx
 notebook
+jupyter
+
 tqdm
--e git+https://github.com/jackraymond/dwave-system@feature/parallel_embeddings#egg=dwave-system  # Temporary, subject to ocean version iteration
--e git+https://github.com/dwavesystems/dwave-networkx@main#egg=dwave-networkx  # Temporary, subject to ocean version iteration
