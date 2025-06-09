@@ -50,7 +50,7 @@ def get_model(model="Landau-Zener", model_idx=0):
         EGS = -num_vars * abs(J0)
     elif model == "Landau-Zener":
         # TO DO, plot spectrum by brute force with published schedules.
-        with open("Andrew220713800Fig2c.pkl", "rb") as f:
+        with open("helper_files/Andrew220713800Fig2c.pkl", "rb") as f:
             X = pickle.load(f)
         Js = list(X.values())
         J = Js[model_idx]
