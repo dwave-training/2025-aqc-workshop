@@ -3,8 +3,8 @@
 A repository of code to demonstrate simple Kibble-Zurek and Landau-Zener
 experiments compatible with those published in these papers:
 
-* https://doi.org/10.1038/s41586-023-05867-2 (Figure 2C)
-* https://doi.org/10.1038/s41567-022-01741-6 (Figure 2A)
+* [Quantum critical dynamics in a 5,000-qubit programmable spin glass](https://doi.org/10.1038/s41586-023-05867-2) (Figure 2C)
+* [Coherent quantum annealing in a programmable 2,000 qubit Ising chain](https://doi.org/10.1038/s41567-022-01741-6) (Figure 2A)
 
 ## Installation
 
@@ -81,8 +81,8 @@ See Figure 2C of the cited papers to understand details of the experiment.
 
 ## References
 
-* https://doi.org/10.1038/s41586-023-05867-2
-* https://doi.org/10.1038/s41567-022-01741-6
+* [Quantum critical dynamics in a 5,000-qubit programmable spin glass](https://doi.org/10.1038/s41586-023-05867-2)
+* [Coherent quantum annealing in a programmable 2,000 qubit Ising chain](https://doi.org/10.1038/s41567-022-01741-6)
 
 ## License
 
