@@ -13,6 +13,10 @@ the [Development Containers specification](https://containers.dev/supporting)
 (aka "devcontainers") such as GitHub
 [Codespaces](https://github.com/features/codespaces).
 
+Note that a Leap account's token should be made available to the Ocean
+software. For workshop participants this is achieved by typing and entering the
+workshop token when requested.
+
 ### Codespaces (Online IDE)
 
 The Codespaces free-tier allocation associated to your GitHub account is
@@ -37,10 +41,6 @@ requirements:
 ```bash
 pip install -r requirements.txt
 ```
-
-Note that a Leap account's token should be made available to the Ocean
-software. For workshop participants this is achieved by typing and entering the
-workshop token when requested.
 
 ```bash
 dwave setup --oob
