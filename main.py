@@ -85,6 +85,7 @@ def main(
 
     # Connect to solver and infer target connectivity:
     qpu = dwave.system.DWaveSampler(solver=solver)
+    solver = qpu.solver.name
     qpu_kwargs = dict(
         num_reads=100, answer_mode="raw", fast_anneal=True, auto_scale=False
     )
@@ -199,7 +200,7 @@ if __name__ == "__main__":
         "--model",
         default="Kibble-Zurek",
         type=str,
-        help="model: either 'Landau-Zener' or 'Kibble-Zurek'",
+        help="model: either 'Landau-Zener' or 'Kibble-Zurek' [default]",
     )
     parser.add_argument(
         "--solver_name",
