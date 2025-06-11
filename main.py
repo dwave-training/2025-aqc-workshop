@@ -87,7 +87,11 @@ def main(
     qpu = dwave.system.DWaveSampler(solver=solver)
     solver = qpu.solver.name
     qpu_kwargs = dict(
-        num_reads=100, answer_mode="raw", fast_anneal=True, auto_scale=False
+        num_reads=100,
+        answer_mode="raw",
+        fast_anneal=True,
+        auto_scale=False,
+        label='AQC2025 Workshop'
     )
     target_graph = qpu.to_networkx_graph()
 
