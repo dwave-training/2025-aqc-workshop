@@ -91,7 +91,7 @@ def main(
         answer_mode="raw",
         fast_anneal=True,
         auto_scale=False,
-        label='AQC2025 Workshop'
+        label="AQC2025 Workshop",
     )
     target_graph = qpu.to_networkx_graph()
 
@@ -103,8 +103,6 @@ def main(
     time0 = perf_counter()
     embedder_kwargs = {"timeout": 10}
     if parallelize_embedding:
-        # This embedding is currently limited to https://github.com/jackraymond/dwave-system/tree/feature/parallel_embeddings
-        # Intention is to make a pull request
         max_num_emb = max(1, len(qpu.nodelist) // num_vars)  # Aim for half-full:
         embeddings = find_multiple_embeddings(
             source_graph,
@@ -133,7 +131,7 @@ def main(
     )  # There are many different dwave_networkx visualization tools suiting other purposes.
     print("Embedding time (seconds):", perf_counter() - time0)
     fname = f"{model}_embeddings_{solver}.png"
-    plt.savefig(fname)
+    plt.savefig(fname, bbox_inches="tight")
     plt.show()
     print(
         f"An image of the embedding has been saved to {fname}, see local directory, or panel (left) if using codespaces"
@@ -165,14 +163,14 @@ def main(
         plt.ylabel("1 - Ground state probability")
         plt.title("Landau-Zener: Exponential decay as function of the gap")
     else:
-        plt.ylabel("Kink density ((<H>/J + N) / 2)")
+        plt.ylabel("Kink density ((1 + <H>/(|J|N)) / 2)")
         plt.xscale("log")
         plt.title("Kibble-Zurek: power law decay as function of critical exponent")
     plt.legend()
     plt.yscale("log")
     plt.xlabel("Annealing time (ns)")
     fname = f"{model}_data_{solver}.png"
-    plt.savefig(fname)
+    plt.savefig(fname, bbox_inches="tight")
     plt.show()
     print(
         f"A scaling plot has been saved to {fname}, see local directory, or panel (left) if using codespaces."
