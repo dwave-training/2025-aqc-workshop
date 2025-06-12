@@ -69,7 +69,7 @@ the power-law or exponential scaling associated to Kibble-Zurek and Landau-Zener
 
 ## Problem Description
 
-See Figure 2C of the cited papers to understand details of the experiment.
+See cited papers to understand details of the experiment.
 
 ## Code Overview
 
